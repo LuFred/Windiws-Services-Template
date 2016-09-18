@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<ServiceList>
+
+
+  <ServiceDefinition Name="WindowsService Template">
+    <Description>服务模板</Description>   
+  </ServiceDefinition>
+
+</ServiceList>
