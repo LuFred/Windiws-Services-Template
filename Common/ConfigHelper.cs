@@ -11,6 +11,6 @@ namespace Common
     {
       
        public static string SERVICE_FILE =System.Configuration.ConfigurationManager.AppSettings["serviceFile"];
-       public static string LIB_RULE = System.Configuration.ConfigurationManager.AppSettings["libRule"];
+       public static string LIB_RULE = "*.Library.dll";
     }
 }
