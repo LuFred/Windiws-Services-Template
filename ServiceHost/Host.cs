@@ -13,8 +13,8 @@ namespace ServiceHost
         public void ServiceInit(System.ServiceProcess.ServiceInstaller serviceInstaller)
         {
              ServiceModel model = XmlReaderHelper.ReadXml(@".\Config\Service.xml");
-            serviceInstaller.ServiceName = model.ServiceName;           
-            serviceInstaller.Description = model.ServiceDescription;
+            serviceInstaller.ServiceName = model.ServiceDefinition.ServiceName;
+            serviceInstaller.Description = model.ServiceDefinition.ServiceDescription;
         }
     }
 }

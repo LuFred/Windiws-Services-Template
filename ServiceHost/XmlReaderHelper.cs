@@ -10,7 +10,8 @@ namespace ServiceHost
 {
     public static class XmlReaderHelper
     {
-        public static ServiceModel ReadXml(string path) {
+        public static ServiceModel ReadXml(string path)
+        {
             XmlDocument xmlDoc = new XmlDocument();
             XmlReaderSettings settings = new XmlReaderSettings();
             settings.IgnoreComments = true;
@@ -18,16 +19,19 @@ namespace ServiceHost
             xmlDoc.Load(reader);
             XmlNode xns = xmlDoc.SelectSingleNode("ServiceList");
             ServiceModel model = new ServiceModel();
-            foreach (XmlNode node in xns)
-            {
-                XmlElement xe = (XmlElement)node;
-                model.ServiceName = xe.GetAttribute("Name");
-                XmlNodeList serverNodes = xe.ChildNodes;
-                model.ServiceDescription = serverNodes.Item(0).InnerText;
-            }
+
+           XmlNode ServiceDefinitionNode=xns.SelectSingleNode("ServiceDefinition");
+            model.ServiceDefinition.ServiceName = ServiceDefinitionNode.Attributes["Name"].Value;
+            model.ServiceDefinition.ServiceDescription = ServiceDefinitionNode.SelectSingleNode("Description").InnerText;
+
+            XmlNode ServiceNode = ServiceDefinitionNode.SelectSingleNode("Service");
+
+            model.ServiceDefinition.Service.LongCheckForWorkInterVal = ServiceNode.SelectSingleNode("LongCheckForWorkInterVal").InnerText;
+            model.ServiceDefinition.Service.MaxThreads =Convert.ToInt32(ServiceNode.SelectSingleNode("MaxThreads").InnerText);
+
             reader.Close();
             return model;
-        
+
         }
     }
 }
